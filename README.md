@@ -28,10 +28,15 @@ lein uberjar
 - PORT: web server port
 
 ```bash
+# Download jar
+RELEASE="0.1.0"
+wget https://github.com/jahyun-dev/kafka-viewer/releases/download/${RELEASE}/kafka-viewer.jar
+
+# Configs
 export BOOTSTRAP_SERVERS="localhost:9092"
 export PORT=8080
 
-# Download jar https://github.com/jahyun-dev/kafka-viewer/releases
+# Run
 java -jar kafka-viewer.jar
 ```
 
