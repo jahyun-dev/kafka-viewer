@@ -31,6 +31,7 @@ lein uberjar
 export BOOTSTRAP_SERVERS="localhost:9092"
 export PORT=8080
 
+# Download jar https://github.com/jahyun-dev/kafka-viewer/releases
 java -jar kafka-viewer.jar
 ```
 
