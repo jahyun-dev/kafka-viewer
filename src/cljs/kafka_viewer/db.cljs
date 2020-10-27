@@ -12,6 +12,7 @@
      :topic-events  []
      :topic-filter  {:keyword ""
                      :system? false}
+     :topic-message-filter {:keyword ""}
      :max-topic     1000
      }))
 

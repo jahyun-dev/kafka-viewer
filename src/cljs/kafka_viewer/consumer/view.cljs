@@ -4,7 +4,8 @@
             ["react-json-view" :default ReactJson]
             [cljs-time.core :refer [to-default-time-zone]]
             [cljs-time.coerce :as t-coerce]
-            [cljs-time.format :as t-format]))
+            [cljs-time.format :as t-format]
+            [kafka-viewer.components.search :refer [search-input]]))
 
 (def date-formatter (t-format/formatter "HH:mm:ss"))
 
@@ -47,9 +48,17 @@
             [tr-row event])
           ]]]]]]))
 
+(defn search-bar
+  []
+  (let [{:keys [keyword] :as topic-filter} @(rf/subscribe [:topic-message-filter])]
+    [:div {:class "flex justify-between pb-3"}
+     [search-input keyword #(rf/dispatch [:set-topic-message-filter (assoc topic-filter :keyword (-> % .-target .-value))])]]
+    ))
+
 (defn consumer []
   (let [consume-topic @(rf/subscribe [:consume-topic])]
     [:div
      [:h1 {:class "text-2xl font-semibold text-gray-900 pb-4"} consume-topic]
+     [search-bar]
      [tables]
      ]))

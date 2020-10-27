@@ -1,19 +1,13 @@
 (ns kafka-viewer.topics.view
   (:require [re-frame.core :as rf]
-            [reitit.frontend.easy :as rfe]))
+            [reitit.frontend.easy :as rfe]
+            [kafka-viewer.components.search :refer [search-input]]))
 
 (defn search-bar
   []
   (let [{:keys [keyword system?] :as topic-filter} @(rf/subscribe [:topic-filter])]
     [:div {:class "flex justify-between"}
-     [:div {:class "mt-1 relative"}
-      [:div {:class "absolute inset-y-0 left-0 pl-3 flex items-center"}
-       [:svg {:class "mr-3 h-4 w-4 text-gray-400" :viewBox "0 0 20 20" :fill "currentColor"}
-        [:path {:fill-rule "evenodd" :d "M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" :clip-rule "evenodd"}]]]
-      [:input {:id        "search" :class "form-input block pl-9 sm:text-sm sm:leading-5" :placeholder "Search"
-               :value     keyword
-               :on-change #(rf/dispatch [:set-topic-filter (assoc topic-filter :keyword (-> % .-target .-value))])}]
-      ]
+     [search-input keyword #(rf/dispatch [:set-topic-filter (assoc topic-filter :keyword (-> % .-target .-value))])]
      [:div {:class "flex"}
       [:div {:class "flex items-center"}
        [:p {:class "ml-2 mr-2"} "System Topics"]

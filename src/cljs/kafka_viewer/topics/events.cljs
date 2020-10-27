@@ -17,11 +17,6 @@
     (assoc db :topics topics)))
 
 (reg-event-db
-  :set-topic-search-keyword
-  (fn [db [_ keyword]]
-    (assoc db :topic-search-keyword keyword)))
-
-(reg-event-db
   :set-topic-filter
   (fn [db [_ topic-filter]]
     (assoc db :topic-filter topic-filter)))
